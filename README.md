@@ -3,19 +3,21 @@
 
 Render-Server 作为中间件服务，根据路由的匹配配置来渲染对应的前端入口页面和接口代理转发，结合相应的插件可以实现后端服务的对接、数据mock、登录验证等功能
 
-测试环境: http://192.168.1.9:8888/render-server/home
-账号: admin
-密码：123456
+
 
 **功能列表**
 
-- 可视化配置界面
+- 一键部署 npm run deploy
+- 支持集群部署配置
+- 是一个文件服务
+- 是一个静态资源服务
+- 在线可视化部署前端项目
 - 配置热更新
-- 接口全代理（包括文件上传）
-- header参数注入
-- 页面渲染(ejs)及页面参数注入
-- 插件配置
-
+- 在线Postman及接口文档
+- 支持前端路由渲染， 支持模板
+- 接口代理及路径替换
+- Web安全支持 Ajax请求验证，Referer 校验
+- 支持插件开发和在线配置 可实现： 前端模板参数注入、请求头注入、IP白名单、接口mock、会话、第三方登陆等等
 
 
 ## 部署说明
@@ -228,7 +230,7 @@ acbddb0fd4b177b0fcd60709d20a8606
 
 ## 使用示例
 
-测试环境: http://192.168.1.9:8888/render-server/home
+http://127.0.0.1:8888/render-server/home
 账号: admin
 密码：123456
 
@@ -288,7 +290,7 @@ admin-front
 将前端项目打包出来文件拷贝到服务器的该目录下：
 
 ```
-$scp -r dist/admin-front deploy@192.168.1.9:/data/render-server/static
+$scp -r dist/admin-front deploy@127.0.0.1:/data/render-server/static
 ```
 
 登陆服务器查看
@@ -306,7 +308,7 @@ index.html 1.1.0
 
 ### 第二步 在线配置服务
 
-访问http://192.168.1.9:8888/render-server/home
+访问http://127.0.0.1:8888/render-server/home
 
 登录后 右上角有按钮，新建一个服务配置项目， 配置内容如下
 
@@ -335,7 +337,7 @@ index.html 1.1.0
             "paths": [
                 "/admin-front/api/(.*)"
             ],
-            "backHost": "http://192.168.90.99:80"
+            "backHost": "http://127.0.0.1:80"
         }
     ]
 }
@@ -344,9 +346,9 @@ index.html 1.1.0
 
 
 
-保存配置 访问 `http://192.168.1.9:8888/admin-front` 就能看到渲染的前端页面
+保存配置 访问 `http://127.0.0.1:8888/admin-front` 就能看到渲染的前端页面
 
-`apiProxy` 配置所有`/admin-front/api` 前缀的ajax请求都能代理到后端的 `http://192.168.90.99:80`这个服务。
+`apiProxy` 配置所有`/admin-front/api` 前缀的ajax请求都能代理到后端的 `http://127.0.0.1:80`这个服务。
 
 ### 第三步 代码更新和回滚
 
@@ -359,16 +361,16 @@ index.html 1.1.0
 
 ```json
 {
-	"key": "gateway",
+	"key": "app",
 	"account": "admin",
-	"name": "网关代理配置",
-	"pageIndex": "/app-gateway",
+	"name": "应用服务",
+	"pageIndex": "/app",
 	"description": "描述",
 	"viewRender": [
 		{
 			"paths": [
-				"/app-gateway/(.*)",
-				"/app-gateway"
+				"/app/(.*)",
+				"/app"
 			],
 			"hosts": [
 				"www.baidu.com"
@@ -376,7 +378,7 @@ index.html 1.1.0
 			"plugins": [],
 			"defaultData": {},
 			"viewType": "path",
-			"viewPath": "app-gateway/index",
+			"viewPath": "app/index",
 			"viewData": "直接是html的内容"
 		}
 	],
@@ -384,12 +386,12 @@ index.html 1.1.0
 		{
 			"methods": [],
 			"paths": [
-				"/app-gateway/(.*)",
-				"/app-gateway"
+				"/app/(.*)",
+				"/app"
 			],
 			"allRequest": false,
 			"referers": [],
-			"pathPrefix": "/app-gateway",
+			"pathPrefix": "/app",
 			"prefixPath": "",
 			"plugins": [
 				{
@@ -406,11 +408,11 @@ index.html 1.1.0
 				"productId": "X-Access-ProductId"
 			},
 			"defaultData": {},
-			"backHost": "http://192.168.1.9:9017"
+			"backHost": "http://127.0.0.1:9017"
 		}
 	],
 	"staticPrefix": [
-		"/app-gateway/static/platform"
+		"/app/static/platform"
 	]
 }
 ```
@@ -546,7 +548,7 @@ req.headers['X-Access-TenantId'] = 1
 
 ##### apiProxy[].backHost*
 
-后端服务的接口地址如`http://192.168.1.9:9017` 不支持负载均衡，后端服务自己实现高可用地址透出。
+后端服务的接口地址如`http://127.0.0.1:9017` 不支持负载均衡，后端服务自己实现高可用地址透出。
 
 
 #### staticPrefix[]

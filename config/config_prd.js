@@ -60,7 +60,7 @@ module.exports = {
       },
       parsedMethods: ['POST', 'PUT', 'DELETE'],
     },
-    host: "http://192.168.90.68:8888",
+    host: "http://127.0.0.1:8888",
   },
   // 通知自己服务订正数据
   notifyHosts: ['http://127.0.0.1:8888'],
