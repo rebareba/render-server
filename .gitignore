@@ -1,0 +1,13 @@
+.idea
+/node_modules
+.DS_store
+config/config.js
+*.log
+Untitled
+.vscode
+/logs
+coverage
+.nyc_output
+/out
+test.js
+package-lock.json

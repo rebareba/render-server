@@ -1,0 +1,9 @@
+out/*
+logs/*
+coverage/*
+node_modules/*
+data
+view/
+static/
+test.js
+bin

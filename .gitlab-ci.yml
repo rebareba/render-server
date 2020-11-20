@@ -1,0 +1,13 @@
+image: node:10.10.0-alpine
+
+cache:
+  paths:
+    - node_modules/
+
+stages:
+  - test
+
+job-1:
+  stage: test
+  script:
+    - make eslint
