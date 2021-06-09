@@ -10,4 +10,4 @@ stages:
 job-1:
   stage: test
   script:
-    - make eslint
+    - echo "test"
