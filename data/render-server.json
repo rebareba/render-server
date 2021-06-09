@@ -2,6 +2,7 @@
 	"key": "render-server",
 	"account": "admin",
 	"name": "前端渲染服务的页面",
+	"pageIndex": "/render-server",
 	"description": "描述",
 	"viewRender": [
 		{
