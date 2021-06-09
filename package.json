@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./app",
+    "build": "make build",
     "deploy": "node ./bin/deploy.js"
   },
   "dependencies": {
