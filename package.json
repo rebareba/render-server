@@ -20,7 +20,7 @@
     "lodash": "^4.17.11",
     "mkdirp": "^1.0.4",
     "moment": "^2.22.2",
-    "path-to-regexp": "^6.1.0",
+    "path-to-regexp": "^6.2.0",
     "request": "^2.88.0",
     "uuid": "^8.2.0",
     "winston": "^3.2.1",
